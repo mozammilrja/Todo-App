@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useAppDispatch } from '@/hooks/useRedux';
-import { updateList, deleteList } from '@/features/lists/listsSlice';
-import { Edit2, Trash2, Check, X } from 'lucide-react';
+import React, { useState } from "react";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateList, deleteList } from "@/features/lists/listsSlice";
+import { Edit2, Trash2, Check, X } from "lucide-react";
 
 interface ListHeaderProps {
   listId: string;
@@ -36,48 +36,49 @@ const ListHeader = ({ listId, title, color, taskCount }: ListHeaderProps) => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSave();
-    } else if (e.key === 'Escape') {
-      handleCancel();
-    }
+    if (e.key === "Enter") handleSave();
+    else if (e.key === "Escape") handleCancel();
   };
 
   return (
-    <div className="flex items-center justify-between mb-4 p-3 bg-white rounded-lg shadow-sm">
-      <div className="flex items-center space-x-3">
-        <div 
-          className="w-3 h-3 rounded-full"
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 p-3 bg-white rounded-lg shadow-sm">
+      <div className="flex items-center gap-3 flex-wrap">
+        <div
+          className="w-3 h-3 rounded-full shrink-0"
           style={{ backgroundColor: color }}
         />
+
         {isEditing ? (
           <input
             type="text"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             onKeyDown={handleKeyPress}
-            className="text-lg font-semibold bg-transparent border-b-2 border-purple-500 focus:outline-none"
+            className="text-base sm:text-lg font-semibold bg-transparent border-b-2 border-purple-500 focus:outline-none"
             autoFocus
           />
         ) : (
-          <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+            {title}
+          </h2>
         )}
+
         <span className="text-sm text-gray-500">({taskCount})</span>
       </div>
-      
-      <div className="flex items-center space-x-2">
+
+      <div className="flex items-center gap-2">
         {isEditing ? (
           <>
             <button
               onClick={handleSave}
               className="p-1 text-green-600 hover:bg-green-50 rounded"
-            >
+              aria-label="Save title">
               <Check className="w-4 h-4" />
             </button>
             <button
               onClick={handleCancel}
               className="p-1 text-red-600 hover:bg-red-50 rounded"
-            >
+              aria-label="Cancel editing">
               <X className="w-4 h-4" />
             </button>
           </>
@@ -86,13 +87,13 @@ const ListHeader = ({ listId, title, color, taskCount }: ListHeaderProps) => {
             <button
               onClick={() => setIsEditing(true)}
               className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded"
-            >
+              aria-label="Edit list title">
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={handleDelete}
               className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
-            >
+              aria-label="Delete list">
               <Trash2 className="w-4 h-4" />
             </button>
           </>
