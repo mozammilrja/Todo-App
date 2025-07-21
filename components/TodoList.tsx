@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { updateList, deleteList } from "@/features/lists/listsSlice";
 import TaskItem from "./TaskItem";
 import TaskInput from "./TaskInput";
 import { Edit2, Trash2, Check, X } from "lucide-react";
+
+const SkeletonCard = () => (
+  <div className="animate-pulse bg-white/20 h-16 rounded-xl p-4 mb-3" />
+);
 
 interface TodoListProps {
   listId: string;
@@ -23,11 +27,37 @@ const TodoList = ({ listId }: TodoListProps) => {
   const tasks = useAppSelector((state) => state.tasks.tasks);
   const searchQuery = useAppSelector((state) => state.app.searchQuery);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (list) {
+      setIsLoading(false);
+    }
+  }, [list]);
+
+  if (isLoading) {
+    return (
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-3 h-3 rounded-full bg-gray-300" />
+            <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse" />
+          </div>
+          <div className="flex space-x-2">
+            <SkeletonCard />
+          </div>
+        </div>
+        {[...Array(3)].map((_, idx) => (
+          <SkeletonCard key={idx} />
+        ))}
+      </div>
+    );
+  }
+
   if (!list) return null;
 
   let listTasks = list.tasks.map((taskId) => tasks[taskId]).filter(Boolean);
 
-  // Filter tasks based on search query
   if (searchQuery.trim()) {
     listTasks = listTasks.filter((task) =>
       task.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -55,11 +85,8 @@ const TodoList = ({ listId }: TodoListProps) => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSave();
-    } else if (e.key === "Escape") {
-      handleCancel();
-    }
+    if (e.key === "Enter") handleSave();
+    if (e.key === "Escape") handleCancel();
   };
 
   const handleEdit = () => {
@@ -68,12 +95,12 @@ const TodoList = ({ listId }: TodoListProps) => {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6">
-      {/* List Header */}
-      <div className="flex items-center justify-between mb-4 p-3 bg-white rounded-lg shadow-sm">
-        <div className="flex items-center space-x-3">
+    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-6 w-full">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4 p-3 bg-white rounded-lg shadow-sm">
+        <div className="flex items-center flex-wrap gap-3 min-w-0 flex-1">
           <div
-            className="w-3 h-3 rounded-full"
+            className="w-3 h-3 rounded-full shrink-0"
             style={{ backgroundColor: list.color }}
           />
           {isEditing ? (
@@ -82,11 +109,11 @@ const TodoList = ({ listId }: TodoListProps) => {
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
               onKeyDown={handleKeyPress}
-              className="text-lg font-semibold bg-transparent border-b-2 border-purple-500 focus:outline-none"
+              className="text-lg font-semibold bg-transparent border-b-2 border-purple-500 focus:outline-none flex-1 min-w-0"
               autoFocus
             />
           ) : (
-            <h2 className="text-lg font-semibold text-gray-800">
+            <h2 className="text-lg font-semibold text-gray-800 truncate flex-1 min-w-0">
               {list.title}
             </h2>
           )}
@@ -124,15 +151,17 @@ const TodoList = ({ listId }: TodoListProps) => {
         </div>
       </div>
 
+      {/* Task Input */}
       <TaskInput listId={listId} />
 
+      {/* Tasks */}
       <div className="px-[10px]">
         <Droppable droppableId={listId}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className={`w-full  mt-[50px] space-y-4 min-h-[100px] transition-all duration-200 ${
+              className={`w-full mt-6 space-y-4 min-h-[100px] transition-all duration-200 ${
                 snapshot.isDraggingOver ? "bg-white/20 rounded-2xl p-4" : ""
               }`}>
               {listTasks.map((task, index) => (
@@ -150,7 +179,6 @@ const TodoList = ({ listId }: TodoListProps) => {
                   No tasks found matching "{searchQuery}"
                 </div>
               )}
-
               {listTasks.length === 0 && !searchQuery && (
                 <div className="text-center py-8 text-white/60">
                   No tasks yet. Add your first task above!
