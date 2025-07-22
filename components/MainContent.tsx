@@ -62,17 +62,15 @@ const MainContent = () => {
           {mainFocusTask ? mainFocusTask.title : "Design team meeting"}
         </h2>
       </div>
-      <div className=" relative z-10 p-8 h-full overflow-y-auto  auto-hide-scrollbar scroll-smooth">
-        <div className="max-w-4xl mx-auto space-y-5">
-          <div className="h-screen p-4 space-y-6">
-            <DragDropContext onDragEnd={onDragEnd}>
-              <div className="max-w-4xl mx-auto">
-                {lists.map((list: any) => (
-                  <TodoList key={list.id} listId={list.id} />
-                ))}
-              </div>
-            </DragDropContext>
-          </div>
+      <div className="space-y-3 overflow-y-auto max-h-full pr-2 auto-hide-scrollbar scroll-smooth">
+        <div className="h-screen p-4 space-y-6">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div className="max-w-4xl mx-auto">
+              {lists.map((list: any) => (
+                <TodoList key={list.id} listId={list.id} />
+              ))}
+            </div>
+          </DragDropContext>
         </div>
       </div>
     </div>
