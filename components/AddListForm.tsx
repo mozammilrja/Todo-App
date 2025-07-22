@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { addList } from "@/features/lists/listsSlice";
 import { Plus } from "lucide-react";
+import { useAppSelector } from "@/hooks/useRedux"; // Import the selector hook
 
 const COLORS = [
   "#F472B6", // Pink
@@ -22,12 +23,18 @@ const AddListForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim()) {
-      dispatch(addList({ title: title.trim(), color: selectedColor }));
-      setTitle("");
-      setSelectedColor(COLORS[0]);
-      setIsOpen(false);
-    }
+
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) return;
+
+    // Capitalize the first letter
+    const capitalizedTitle =
+      trimmedTitle.charAt(0).toUpperCase() + trimmedTitle.slice(1);
+
+    dispatch(addList({ title: capitalizedTitle, color: selectedColor }));
+    setTitle("");
+    setSelectedColor(COLORS[0]);
+    setIsOpen(false);
   };
 
   if (!isOpen) {
