@@ -63,7 +63,7 @@ const MainContent = () => {
         </h2>
       </div>
 
-      <div className="h-screen overflow-y-auto px-4 pt-6 pb-[300px] sm:px-6 md:px-8">
+      <div className="h-screen overflow-y-auto px-4 pt-6 pb-[300px] sm:px-6 md:px-8 auto-hide-scrollbar scroll-smooth">
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="max-w-4xl mx-auto">
             {lists.map((list: any) => (
