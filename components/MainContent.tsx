@@ -8,7 +8,6 @@ import TodoList from "./TodoList";
 const MainContent = () => {
   const dispatch = useAppDispatch();
   const lists: any = useAppSelector((state) => state.lists.lists);
-  console.log("lists", lists);
 
   const mainFocus = useAppSelector((state) => state.lists.mainFocus);
   const tasks = useAppSelector((state) => state.tasks.tasks);
@@ -55,18 +54,20 @@ const MainContent = () => {
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Foreground Content */}
-      <div className="relative z-10 h-full md:p-10 text-white bg-transparent">
+      <div className="text-center mb-8 ">
+        <h1 className="text-white text-lg font-medium mb-1">
+          Today main focus
+        </h1>
+        <h2 className="text-white text-2xl font-bold">
+          {mainFocusTask ? mainFocusTask.title : "Design team meeting"}
+        </h2>
+      </div>
+      <div className=" relative z-10 p-8 h-full overflow-y-auto  auto-hide-scrollbar scroll-smooth">
         <div className="max-w-4xl mx-auto space-y-5">
-          <div className="text-left">
-            <p className="text-base md:text-lg font-medium">Today main focus</p>
-            <h2 className="text-2xl md:text-3xl font-bold">
-              {mainFocusTask ? mainFocusTask.title : "Design team meeting"}
-            </h2>
-          </div>
-          <div className="h-screen overflow-y-auto p-4 space-y-6 custom-thin-scroll">
+          <div className="h-screen p-4 space-y-6">
             <DragDropContext onDragEnd={onDragEnd}>
-              <div className="space-y-6">
-                {lists.map((list) => (
+              <div className="max-w-4xl mx-auto">
+                {lists.map((list: any) => (
                   <TodoList key={list.id} listId={list.id} />
                 ))}
               </div>

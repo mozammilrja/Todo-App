@@ -15,9 +15,6 @@ interface SidebarProps {
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { lists } = useAppSelector((state) => state.lists);
 
-
-
-
   const getTaskCount = (listId: string) => {
     const list = lists.find((l) => l.id === listId);
     return list ? list.tasks.length : 0;
@@ -70,7 +67,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             <h3 className="text-sm font-medium text-gray-900">Today tasks</h3>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 overflow-y-auto max-h-[80px] pr-2 auto-hide-scrollbar scroll-smooth">
             {lists.map((list) => (
               <div key={list.id} className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -91,7 +88,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <AddListForm />
 
         {/* Scheduled Tasks */}
-        <div className="mb-8">
+        <div className="mb-0">
           <div className="flex items-center space-x-2 mb-4">
             <Calendar className="w-4 h-4 text-gray-600" />
             <h3 className="text-sm font-medium text-gray-900">
