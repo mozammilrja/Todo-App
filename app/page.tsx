@@ -13,18 +13,18 @@ export default function Home() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
-    const sampleTasks = [
-      { title: "Work out", time: "08:00", listId: "personal" },
-      { title: "Design team meeting", time: "14:30", listId: "work" },
-      { title: "Hand off the project", time: "19:00", listId: "freelance" },
-      { title: 'Read 5 pages of "sprint"', time: "22:30", listId: "personal" },
-    ];
+    const hasInitialized = localStorage.getItem("hasInitializedDefaultTasks");
 
-    const existingTasks = localStorage.getItem("persist:todo-app-root");
+    if (!hasInitialized) {
+      const sampleTasks = [
+        { title: "Work out", time: "08:00", listId: "personal" },
+        { title: "Design team meeting", time: "14:30", listId: "work" },
+        { title: "Hand off the project", time: "19:00", listId: "freelance" },
+      ];
 
-    if (!existingTasks || !existingTasks.includes('"tasks":{')) {
       const addTasks = async () => {
         for (const task of sampleTasks) {
+          console.log("task", task);
           const taskAction = await dispatch(
             addTask({
               title: task.title,
@@ -35,6 +35,8 @@ export default function Home() {
           const taskId = taskAction.payload.id;
           dispatch(addTaskToList({ listId: task.listId, taskId }));
         }
+
+        localStorage.setItem("hasInitializedDefaultTasks", "true");
       };
 
       addTasks();

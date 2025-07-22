@@ -15,6 +15,9 @@ interface SidebarProps {
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { lists } = useAppSelector((state) => state.lists);
 
+
+
+
   const getTaskCount = (listId: string) => {
     const list = lists.find((l) => l.id === listId);
     return list ? list.tasks.length : 0;
