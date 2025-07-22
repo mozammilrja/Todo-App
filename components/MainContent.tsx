@@ -63,18 +63,6 @@ const MainContent = () => {
         </h2>
       </div>
 
-      {/* <div className="space-y-3 overflow-y-auto max-h-full pr-2 auto-hide-scrollbar scroll-smooth">
-        <div className="h-screen p-4 space-y-6">
-          <DragDropContext onDragEnd={onDragEnd}>
-            <div className="max-w-4xl mx-auto">
-              {lists.map((list: any) => (
-                <TodoList key={list.id} listId={list.id} />
-              ))}
-            </div>
-          </DragDropContext>
-        </div>
-      </div> */}
-
       <div className="h-screen overflow-y-auto px-4 pt-6 pb-[300px] sm:px-6 md:px-8">
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="max-w-4xl mx-auto">
