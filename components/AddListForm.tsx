@@ -50,7 +50,7 @@ const AddListForm = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="List name"
-        className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+        className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm bg-white text-black"
         autoFocus
       />
 

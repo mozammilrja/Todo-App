@@ -43,9 +43,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <div className="flex items-center space-x-3 mb-8">
           <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
             <img
-              src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&dpr=2"
+              src="https://randomuser.me/api/portraits/men/75.jpg"
               alt="Profile"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           </div>
           <div>

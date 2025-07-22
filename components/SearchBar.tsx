@@ -26,8 +26,9 @@ const SearchBar = () => {
           value={searchQuery}
           onChange={handleSearchChange}
           placeholder="Search tasks..."
-          className="w-full pl-10 pr-10 py-2 bg-white rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+          className="w-full h-9 pl-8 pr-8 text-sm text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
+
         {searchQuery && (
           <button
             onClick={handleClearSearch}

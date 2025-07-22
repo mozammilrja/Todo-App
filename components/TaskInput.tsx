@@ -68,7 +68,7 @@ const TaskInput = ({ listId }: TaskInputProps) => {
               type="time"
               value={taskTime}
               onChange={(e) => setTaskTime(e.target.value)}
-              className="w-[90px] border-none outline-none bg-transparent text-gray-400 cursor-pointer hover:text-gray-600 transition-colors"
+              className="min-w-[90px] border-none outline-none bg-transparent text-gray-400 cursor-pointer hover:text-gray-600 transition-colors"
             />
             <Calendar className="w-4 h-4 hover:text-gray-600 transition-colors cursor-pointer" />
           </div>

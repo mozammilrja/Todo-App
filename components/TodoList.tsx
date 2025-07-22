@@ -95,7 +95,7 @@ const TodoList = ({ listId }: TodoListProps) => {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-6 w-full">
+    <div className="bg-white/5 backdrop-blur-md rounded-2xl p-4 md:p-6 mb-6 w-full">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4 p-3 bg-white rounded-lg shadow-sm">
         <div className="flex items-center flex-wrap gap-3 min-w-0 flex-1">
